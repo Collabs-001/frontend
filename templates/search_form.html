@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobsman</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Find the Best Jobs</h1>
+    </header>
+    <div class="container">
+        <form action="/search" method="post" class="search-form">
+            <div class="search-input-wrap">
+                <span class="search-icon"></span>
+                <input type="text" name="query" placeholder="Search jobs, companies, positions..." class="search-input">
+            </div>
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+</body>
+</html>
