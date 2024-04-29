@@ -22,11 +22,27 @@ def search_form():
 
 @app.route('/search', methods=['POST'])
 def search():
-    query = request.form['query'].lower()  # Convert query to lowercase for case-insensitive search
-    filtered_items = [item for item in json_data if any(query in value.lower() for value in item.values())]
+    query_string = request.form['query']
+    queries = [q.strip() for q in query_string.replace(',', '+').split('+')]
+
+    locations = []
+    query_terms = []
+    for query in queries:
+        if ',' in query:
+            locs = [loc.strip() for loc in query.split(',')]
+            locations.extend(locs)
+        else:
+            query_terms.append(query)
+
+    filtered_items = json_data[:]
+    for query in query_terms:
+        filtered_items = [item for item in filtered_items if any(query.lower() in value.lower() for value in item.values())]
+    for loc in locations:
+        filtered_items = [item for item in filtered_items if any(loc.lower() in value.lower() for value in item.values())]
+
     count = len(filtered_items)
 
-    return render_template('search_results.html', query=query, results=filtered_items, count=count)
+    return render_template('search_results.html', query=query_string, results=filtered_items, count=count)
 
 
 if __name__ == '__main__':
