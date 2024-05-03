@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Load JSON data from file
 try:
-    response = requests.get('https://backend-oj59.onrender.com/get')
+    response = requests.get('https://backend-jobsman.up.railway.app/get')
     response.raise_for_status()  # Raise an exception for bad status codes
     json_data = response.json()
 except requests.exceptions.RequestException as e:
